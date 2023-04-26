@@ -1,0 +1,10 @@
+//https://leetcode.com/problems/sqrtx/description/
+class MySqrt {
+    long k = 0;
+    int num = 0;
+    while (k*k <= x) {
+        k++;
+        num++;
+    }
+    return num-1
+}
