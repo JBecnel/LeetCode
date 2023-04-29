@@ -27,6 +27,8 @@ public class Heap {
             System.out.println("The array is a heap.");
         else
             System.out.println("The array is not a heap.");
+        
+        console.close();
     } // end main
 
     //----------------isHeap-----------------

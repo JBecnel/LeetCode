@@ -30,6 +30,7 @@ public class BitStrings {
         while (itr.hasNext()) {
             System.out.println(itr.next());
         }
+        input.close();
     } // end main
 
     //------------------------------bitStrings------------------------------

@@ -42,5 +42,6 @@ public class Fit {
             }  // end else
         } // end for
         System.out.println("}");
+        console.close();
     }  //end main
 } // end class

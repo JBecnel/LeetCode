@@ -20,6 +20,7 @@ public class Quad {
         float a = console.nextFloat();
         float b = console.nextFloat();
         float c = console.nextFloat();
+        console.close();
 
         // find the x coordinate of the vertex of the parabola
         float x = findVertex(a,b);

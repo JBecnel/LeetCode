@@ -23,6 +23,8 @@ public class Anagram {
         else 
             System.out.println("The two strings are not anagrams.");
 
+        console.close();
+
     }
     
     /* This method determines if the two strings are anagrams.

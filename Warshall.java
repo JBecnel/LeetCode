@@ -54,6 +54,7 @@ public class Warshall {
             System.out.print((graph[i][j] ? 1 : 0) +" ");
          System.out.println(); // go to next line
       }
+      fileInput.close();
    }
    
    /* This method is an implementation of Warshall's algorithm.
