@@ -1,4 +1,6 @@
+//https://leetcode.com/problems/number-of-islands/description/
 public class NumberOfIslands {
+
     public int numIsland(char[][] grid) {
         int count = 0;
         for (int i = 0; i < grid.length; i++)
