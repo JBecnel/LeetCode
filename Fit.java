@@ -1,6 +1,6 @@
 /* Dr. Becnel
 This program takes an array of numbers between 0 and 1. The array is paritioned into
-sets such that each set in the parition contians elements that total to 1 or less.
+sets such that each set in the parition contains elements that total to 1 or less.
 
 The original array is read from the console and the partition is displayed to the
 console.
