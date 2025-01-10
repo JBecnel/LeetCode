@@ -29,9 +29,59 @@ nums2.length == n
 
 class MedianTwoArrays {
     public static void main(String[] args) {
-        int[] a = {1,3,10,12,141};
-        int[] b = {2,4,6,8};
-        System.out.println(findMedianSortedArrays(a, b));
+        int[] a = {1,3,9,10, 12,141};
+        int[] b = {2,4,6,8, 100};
+        System.out.println(medianSortedArrays(a,b));
+        System.out.println(medianSortedArrays(b,a));
+
+
+        int[] c = {1,3,9, 10, 12, 141};
+        int[] d = {2,4,6, 8, 100, 200};
+        System.out.println(medianSortedArrays(c,d));
+        System.out.println(medianSortedArrays(d,c));
+
+        int[] e = {1,3,5, 7, 9, 11};
+        int[] f = {12,14,16, 18, 110, 200};
+        System.out.println(medianSortedArrays(e,f));
+        System.out.println(medianSortedArrays(f,e));
+    }
+
+    public static double medianSortedArrays(int[] array1, int[] array2) {
+       int n = array1.length;
+       int m = array2.length;
+
+       int i = 0;
+       int j = 0;
+
+       int target = (n+m)/2;
+
+      for (int k = 0; k < target; k++) {
+            if (i < array1.length-1 && j < array2.length-1) {
+                if (array1[i] < array2[j]) 
+                    i++;
+                else 
+                    j++;
+            } else {
+                if (i == array1.length-1)
+                    j++;
+                else
+                    i++;
+            }
+       }
+    
+       int min1 = Math.min(array1[i], array2[j]);
+       int min2 = Math.max(array1[i], array2[j]);
+       if (i+1 < array1.length)
+            min2 = Math.min(min2, array1[i+1]);
+       if (j+1 < array2.length)
+            min2 = Math.min(min2, array2[j+1]);
+
+       System.out.println(min1 + " " + min2);
+       
+       if ( (n+m) % 2 == 0)
+           return (min1+min2)/2.0;
+       else 
+           return min1;
     }
 
     public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
