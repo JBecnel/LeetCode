@@ -18,21 +18,21 @@
  */
 public class RemoveDuplicates {
     public int removeDuplicates(int[] nums) {
+    
         int spot = 0;
         int index = 0;
         while (index < nums.length) {
             int j = index + 1;
-            if (j < nums.length) {
-                while (nums[j] == nums[index]) {
+            while (j < nums.length && nums[j] == nums[index]) {
                     j++;
-                }
             }
+            
             nums[spot] = nums[index];
             spot = spot + 1;
             index = j;
 
         }
-        return spot + 1;
+        return spot;
     }
 
     public static void main(String[] args) {
