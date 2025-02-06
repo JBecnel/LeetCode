@@ -3,4 +3,4 @@
 
 [LeetCode JBecnel](https://leetcode.com/JBecnel/)
 
-A few recent Leetcode problems done in Java.
+A few recent Leetcode problems done or Python
