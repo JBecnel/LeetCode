@@ -21,4 +21,22 @@ Constraints:
 '''
 class Solution:
     def generate(self, numRows: int) -> list[list[int]]:
-        
+        triangle = [[1]]
+
+        prev_row = triangle[0]
+        for r in range(1,numRows):
+            row = [1]
+            for i in range(0, len(prev_row)-1):
+                row.append(prev_row[i]+ prev_row[i+1])
+            row.append(1)
+            prev_row = row
+
+            triangle.append(prev_row)
+
+        return triangle
+    
+if __name__ == "__main__":
+    s = Solution()
+    print(s.generate(5))
+    print(s.generate(1))
+    print(s.generate(2))
