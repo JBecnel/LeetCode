@@ -26,23 +26,55 @@ Constraints:
 
 class Solution:
     def solveNQueens(self, n: int) -> list[list[str]]:
+        if n == 1:
+            return [["Q"]]
+        
+        if n == 2:
+            return []
+       
+        invalid = set()  # stores invalid positions
+        solutions = set()  # stores unique solutions
+        solveQueensUtil(0, n, invalid, solutions, set())
+        return convert(solutions, n)
+        
+# convert the set of solutions to the required format
+def convert(solutions, n):
+    result = []
+    for sol in solutions:
         grid = [['.'] * n for _ in range(n)]
-        return self.solveQueensUtil(n, grid)
-    
-    
-    def solveQueensUtil(self, n, grid):
-        if n == 0:
-            return [grid]
-        
-        solutions = []
-        for i in range(len(grid)):
-            for j in range(len(grid)):
-                if self.isSafe(i, j, grid):
-                    grid[i][j] = 'Q'
-                    solutions += self.solveQueensUtil(n - 1, grid)
-                    grid[i][j] = '.'
+        for i, j in sol:
+            grid[i][j] = 'Q'
+        result.append([''.join(row) for row in grid])
+    return result
+
+# recursive function to solve the N-Queens problem
+# bracktracking technique
+def solveQueensUtil(row, n, invalid, solutions, solution):
+    if row == n:
+        solutions.add(tuple(solution)) 
+    else:    
+        for c in range(n):
+            if not ((row, c) in invalid):
+                sol = solution.copy()
+                sol.add((row,c))
+                
+                # mark row, column and diagonals as invalid
+                inv = invalid.copy()
+                for i in range(n):
+                    for j in range(n):
+                        if i == row or j == c or abs(i-row) == abs(j-c):
+                            inv.add((i, j))
+                
+                solveQueensUtil(row + 1, n, inv, solutions, sol)
                     
-        return solutions
-        
-    def isSafe(self, row, col, grid):
+    
+
+if __name__ == "__main__":
+    s = Solution()
+    print(s.solveNQueens(4))
+    print(s.solveNQueens(3))
+    
+    print(s.solveNQueens(2))
+    print(s.solveNQueens(1))
+    
         
