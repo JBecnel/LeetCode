@@ -29,23 +29,38 @@ Follow up: Could you come up with a one-pass algorithm using only constant extra
 
 class Solution:
     def sortColors(self, nums: list[int]) -> None:
-        ones = 0
-        twos = 0
-        for n in nums:
-            if n == 1:
-                ones += 1
-            elif n == 2:
-                twos += 1
-                
-        for i in range(len(nums)):
-            if i < ones:
-                nums[i] = 0
-            elif i < ones + twos:
-                nums[i] = 1
+        zero_index = 0
+        two_index = len(nums) - 1
+        index = 0
+        while index <= two_index:
+            if nums[index] == 0:
+                nums[zero_index], nums[index] = nums[index], nums[zero_index]
+                zero_index += 1
+                index += 1
+            elif nums[index] == 2:
+                nums[two_index], nums[index] = nums[index], nums[two_index]
+                two_index -= 1
             else:
-                nums[i] = 2
+                index += 1
+                
                 
 if __name__ == "__main__":
     nums = [1,2,0,1,2,0,1,2,0]
+    Solution().sortColors(nums)
+    print(nums)
+    
+    nums = [0]
+    Solution().sortColors(nums)
+    print(nums)
+    
+    nums = [1]
+    Solution().sortColors(nums)
+    print(nums)
+    
+    nums = [1,2,0,1]
+    Solution().sortColors(nums)
+    print(nums)
+    
+    nums = [1,1,2,0,1,1]
     Solution().sortColors(nums)
     print(nums)
