@@ -53,50 +53,42 @@ Constraints:
 s contains only digits and may contain leading zero(s).'''
 
 class Solution:
-    def numDecodings(self, s : str) -> int:
+    def numDecodingsUtil(self, s : str, mem_func : list[int]) -> int:
+        if mem_func[len(s)] > -1:
+            return mem_func[len(s)]
+        
+        # reached the end, 1 string
         if len(s) == 0:
-            return 0
+            mem_func[len(s)] = 1
+            return 1
         
         num = int(s[0])
+        # if num starts with 0, it is invalid
         if num == 0:
+            mem_func[len(s)] = 0
             return 0
-        
+        # if one number (not zero), then we have 1 valid sequence
         if len(s) == 1:
+            mem_func[len(s)] = 1
             return 1
         
         next = int(s[1])
         
+        # starts with 1,2 and ends with 0, jump 2
         if (num <= 2) and (next == 0):
-            return self.numDecodings(s[2:])
-        
+            mem_func[len(s)] = self.numDecodingsUtil(s[2:], mem_func)
+            return mem_func[len(s)]
+        # numbers from 10-26
         if (num == 1) or (num ==2 and next <= 6):
-            return 1+ self.numDecodings(s[1:]) + self.numDecodings(s[2:])    
+            mem_func[len(s)] = self.numDecodingsUtil(s[1:], mem_func) + self.numDecodingsUtil(s[2:], mem_func)    
+            return mem_func[len(s)]
+        # number 3-9
+        mem_func[len(s)] = self.numDecodingsUtil(s[1:], mem_func) 
+        return mem_func[len(s)]
         
-        return self.numDecodings(s[1:]) 
-        
-    def numDecodings2(self, s: str) -> int:
-        if len(s) == 0:
-            return 0
-        elif len(s) == 1:
-            return 1
-        else:
-            count = self.numDecodings(s[1:])
-            if s[0] == '0':
-                return 0
-            elif s[0] == "1":
-                if s[1] == '0':
-                    return self.numDecodings(s[2:])
-                else:
-                    return count  + self.numDecodings(s[2:])
-            elif s[0] == "2":                
-                if s[1] != '7' and s[1] != '8' and s[1] != '9':
-                    return count + self.numDecodings(s[2:])
-                elif s[1] == '0':
-                    return self.numDecodings(s[2:])
-                else:
-                    return count
-            else:
-                return count
+    def numDecodings(self, s: str) -> int:
+        mem_func = [-1] * (len(s)+1)  # memory function to avoid repeated calculations
+        return self.numDecodingsUtil(s, mem_func)
             
 if __name__ =="__main__":
     s = Solution()
@@ -104,3 +96,4 @@ if __name__ =="__main__":
     print(s.numDecodings("12"))
     print(s.numDecodings("226"))
     print(s.numDecodings("06"))
+    print(s.numDecodings("111111111111111111111111"))
