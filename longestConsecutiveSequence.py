@@ -22,7 +22,7 @@ Input: nums = [1,0,1,2]
 Output: 3'''
 
 class Solution:
-    def longestConsecutive(self, nums: list[int]) -> int:
+    def longestConsecutive1(self, nums: list[int]) -> int:
         num_set = set(nums)
         longest_sequence = 0
         for x in nums:
@@ -35,8 +35,32 @@ class Solution:
                 longest_sequence = max(longest_sequence, seq)
         
         return longest_sequence
+    
+    
+    
+    def longestConsecutive(self, nums: list[int]) -> int:
+        max_seq = 0
+        seq_lengths = {}  #  dictionary to track sequence lengths
+        
+        for num in nums:            
+            if num not in seq_lengths:
+                left = seq_lengths.get(num - 1, 0)   # Length of consecutive sequence ending at num-1
+                right = seq_lengths.get(num + 1, 0)  # Length of consecutive sequence starting at num+1
+                curr_length = left + right + 1       # Total length of the new sequence
+                
+                
+                seq_lengths[num] = curr_length
+                max_seq = max(max_seq, curr_length)
+                
+                # Update the boundaries of the sequence with the new total length
+                # This ensures the endpoints reflect the entire merged sequence length.
+                if left > 0:
+                    seq_lengths[num - left] = curr_length
+                if right > 0:
+                    seq_lengths[num + right] = curr_length
+        return max_seq
                 
 if __name__ == "__main__":
     s = Solution()
     print(s.longestConsecutive([100,4,200,1,3,2]))
-    print(set([100,0,0,0]))
+    
