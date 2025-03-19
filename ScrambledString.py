@@ -49,28 +49,34 @@ class Solution:
             for i in len(s1):
                 if s1[i] != s2[i]:
                     break
-    def generateStrings(self, s1 : str) -> list[str]:
+    def generateStrings(self, s1 : str, target : str) -> list[str]:
         if len(s1) <= 1:
             return [s1]
         elif len(s1) == 2:
             return [s1, s1[1] + s1[0]]
         else:
-            all_str = []
-            for i in range(1, len(s1)-1):
-                print(s1[:i], s1[i:])
+            all_str = set()
+            all_str.add(s1)
+            for i in range(1, len(s1)):
+                #print(s1[:i], s1[i:])
                 first_half = self.generateStrings(s1[:i])
                 second_half = self.generateStrings(s1[i:])
-                print(first_half, second_half)
+                #print(first_half, second_half)
                 for first in first_half:
                     for second in second_half:
-                        all_str.append( second+first)
+                        all_str.add( second+first)
+                        all_str.add(first+second)
         
             return all_str
         
 if __name__ == '__main__':
     s = Solution()
     #print(s.generateStrings('abcde'))
+    #print(s.generateStrings('abc'))
     print(s.generateStrings('great'))
-    #print(s.isScramble('great', 'rgeat'))
-    #print(s.isScramble('abcde', 'caebd'))
-   # print(s.isScramble('a', 'a'))
+    
+    print(s.isScramble('great', 'rgeat'))
+    print(s.isScramble('abcde', 'caebd'))
+    print(s.isScramble('a', 'a'))
+   
+   
